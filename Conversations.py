@@ -52,7 +52,7 @@ while True:
         #Checks again for 200 code
         if con_response.status_code == 200:
             conversations = con_response.json()
-            replies = [conv for conv in conversations if not conv.get("private", False)] #Gets private conversations only
+            replies = [conv for conv in conversations if not conv.get("private", False)] #Gets public conversations only
 
             #Ticket fields
             ticket_data = {
@@ -73,7 +73,7 @@ while True:
     page += 1  # Move to next page
 
 # Write to CSV
-with open("tickets2.csv", mode="w", newline="", encoding="utf-8") as csvfile:
+with open("conversation.csv", mode="w", newline="", encoding="utf-8") as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(["Ticket ID", "Agent Id", "Status", "Subject", "Priority", "Num Replies"])  # Header row
 
