@@ -51,13 +51,4 @@ with open("tickets.csv", mode="w", newline="", encoding="utf-8") as csvfile:
             ticket.get("status", "") 
         ])
 
-# Responses per ticket
-# 3. For each ticket, count replies:
-total_responses = 0
-for conTicket in all_tickets:
-    ticket_id = ticket.get("id", "")
-    replies = GET /api/v2/tickets/{ticket_id}/conversations
-    total_responses += len(replies)
-    print(f"Ticket id: {ticket_id}")
-
 print(f"🎉 Export complete! Total tickets: {len(all_tickets)}")
