@@ -48,7 +48,7 @@ with open("tickets.csv", mode="w", newline="", encoding="utf-8") as csvfile:
         writer.writerow([
             ticket.get("id", ""),
             ticket.get("responder_id", ""),
-            ticket.get("status", "")  # 👈 lowercase "status"
+            ticket.get("status", "") 
         ])
 
 print(f"🎉 Export complete! Total tickets: {len(all_tickets)}")
