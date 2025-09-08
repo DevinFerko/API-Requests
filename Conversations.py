@@ -28,7 +28,7 @@ while True:
     )
 
     if response.status_code != 200:
-        print(f"❌ Failed on page {page}. Status Code: {response.status_code}, Response: {response.text}")
+        print(f"Failed on page {page}. Status Code: {response.status_code}, Response: {response.text}")
         break
 
     tickets = response.json()
@@ -59,7 +59,7 @@ while True:
 
             all_tickets.append(ticket_data)
         else:
-            print(f"⚠️ Could not fetch conversations for ticket {ticket_id}. "
+            print(f"Could not fetch conversations for ticket {ticket_id}. "
                   f"Status: {con_response.status_code}, Response: {con_response.text}")
 
     page += 1  # Move to next page
