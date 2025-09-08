@@ -7,15 +7,16 @@ import csv
 # Freshdesk domain and API key
 FRESHDESK_DOMAIN = "tapwarehouse.freshdesk.com"
 
+# Opens credentials file and gets api key
 with open(r"C:\Users\Devin Ferko\Desktop\Codes\API Requests\Freshdesk\credentials.json") as f:
     creds = json.load(f)
 
 API_KEY = creds["api_key"]
 
-# Base URL + conversation url
+# Base URL 
 url = f"https://{FRESHDESK_DOMAIN}/api/v2/tickets"
 
-all_tickets = []
+all_tickets = [] #empty array for tickets
 page = 1
 per_page = 100  # Freshdesk allows up to 100 per page
 
@@ -27,27 +28,33 @@ while True:
         params={"page": page, "per_page": per_page} 
     )
 
+    #Handles error if code not equal tp 200
     if response.status_code != 200:
         print(f"Failed on page {page}. Status Code: {response.status_code}, Response: {response.text}")
         break
 
+    # Tickets as the response
     tickets = response.json()
     if not tickets:  # No more tickets
         break
 
+    # Loops through ticket for ticket id
     for ticket in tickets:
         ticket_id = ticket["id"]
         con_url = f"https://{FRESHDESK_DOMAIN}/api/v2/tickets/{ticket_id}/conversations"
 
+        # Url for conversation api
         con_response = requests.get(
             con_url,
             auth=HTTPBasicAuth(API_KEY, "X")
         )
 
+        #Checks again for 200 code
         if con_response.status_code == 200:
             conversations = con_response.json()
-            replies = [conv for conv in conversations if not conv.get("private", False)]
+            replies = [conv for conv in conversations if not conv.get("private", False)] #Gets private conversations only
 
+            #Ticket fields
             ticket_data = {
                 "ticket_id": ticket_id,
                 "subject": ticket.get("subject", ""),
@@ -57,6 +64,7 @@ while True:
                 "num_replies": len(replies)
             }
 
+            # Appends to all tickets array
             all_tickets.append(ticket_data)
         else:
             print(f"Could not fetch conversations for ticket {ticket_id}. "
@@ -79,4 +87,4 @@ with open("tickets2.csv", mode="w", newline="", encoding="utf-8") as csvfile:
             ticket.get("num_replies", 0)
         ])
 
-print(f"🎉 Export complete! Total tickets: {len(all_tickets)}")
+print(f"Export complete! Total tickets: {len(all_tickets)}")
