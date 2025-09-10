@@ -4,9 +4,6 @@ from requests.auth import HTTPBasicAuth
 import json
 import csv
 
-# Freshdesk domain and API key
-LIVECHAT_DOMAIN = ""
-
 # Opens Credentials file gets api key
 with open(r"C:\Users\Devin Ferko\Desktop\Codes\API Requests\CX Reporting\LiveChat\credentials.json") as f:
     creds = json.load(f)
@@ -14,7 +11,7 @@ with open(r"C:\Users\Devin Ferko\Desktop\Codes\API Requests\CX Reporting\LiveCha
 API_TOKEN = creds["api_token"]
 
 # Base URL for LiveChat API
-BASE_URL = "https://api.livechatinc.com/v3.5/reports/agents"
+BASE_URL = "https://api.livechatinc.com/v3.5/reports/agents/summary"
 
 # Function to get agent metrics
 def get_agent_metrics():
@@ -23,10 +20,10 @@ def get_agent_metrics():
         "Content-Type": "application/json"
     }
 
-    # You can add query parameters, e.g., date range
+    # Add query parameters
     params = {
-        "date_from": "2024-01-01",  # adjust as needed
-        "date_to": "2025-09-10"     # adjust as needed
+        "date_from": "2024-01-01",  
+        "date_to": "2025-09-10"     
     }
 
     # Request data from LiveChat API
@@ -43,6 +40,7 @@ def get_agent_metrics():
     # Empty list to hold agent metrics
     agent_metrics = []
 
+    # Process each agent's data - loops over each agent
     for agent in data.get("agents", []):
         total_chats = agent.get("total_chats", 0)
         percent_of_totalChats = (total_chats / total_chats_allAgents * 100) if total_chats_allAgents else 0
