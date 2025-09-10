@@ -12,3 +12,4 @@ with open(r"C:\Users\Devin Ferko\Desktop\Codes\API Requests\Freshdesk\credential
     creds = json.load(f)
 
 API_TOKEN = creds["api_token"]
+#Test
