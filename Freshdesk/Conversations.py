@@ -8,7 +8,7 @@ import csv
 FRESHDESK_DOMAIN = "tapwarehouse.freshdesk.com"
 
 # Opens credentials file and gets api key
-with open(r"C:\Users\Devin Ferko\Desktop\Codes\API Requests\Freshdesk\credentials.json") as f:
+with open(r"C:\Users\Devin Ferko\Desktop\Codes\API Requests\CX Reporting\Freshdesk\credentials.json") as f:
     creds = json.load(f)
 
 API_KEY = creds["api_key"]
