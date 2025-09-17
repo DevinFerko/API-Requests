@@ -45,13 +45,14 @@ while True:
 # Write to CSV
 with open("tickets.csv", mode="w", newline="", encoding="utf-8") as csvfile:
     writer = csv.writer(csvfile)
-    writer.writerow(["ID", "Agent Id", "Status"])  # Header row
+    writer.writerow(["ID", "Agent Id", "Status", "Updated"])  # Header row
 
     for ticket in all_tickets:
         writer.writerow([
             ticket.get("id", ""),
             ticket.get("responder_id", ""),
-            ticket.get("status", "") 
+            ticket.get("status", ""),
+            ticket.get("updated_at", "") 
         ])
 
 print(f"Export complete! Total tickets: {len(all_tickets)}")
