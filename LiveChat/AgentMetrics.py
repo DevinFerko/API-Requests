@@ -11,7 +11,7 @@ with open(r"C:\Users\Devin Ferko\Desktop\Codes\API Requests\CX Reporting\LiveCha
 API_TOKEN = creds["api_token"]
 
 # Base URL for LiveChat API
-BASE_URL = "https://api.livechatinc.com/v3.5/reports/agents/summary"
+BASE_URL = "https://api.livechatinc.com/v3.6/reports/chats/total_chats"
 
 # Function to get agent metrics
 def get_agent_metrics():
@@ -27,7 +27,7 @@ def get_agent_metrics():
     }
 
     # Request data from LiveChat API
-    response = requests.get(BASE_URL, headers=headers, params=params)
+    response = requests.post(BASE_URL, headers=headers, params=params)
 
     # Check for successful response if not prints status code
     if response.status_code != 200:
